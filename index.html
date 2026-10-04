@@ -213,6 +213,16 @@ body{
 }
 .disclaimer .mark{color:#e08a7a;font-weight:700}
 
+/* ── 引流引导（可自定义联系方式） ── */
+.contact-hint{
+  position:fixed;left:0;right:0;bottom:46px;z-index:5;
+  text-align:center;font-size:12.5px;color:var(--gold);
+  font-family:"STKaiti","Kaiti SC","KaiTi","楷体",serif;
+  letter-spacing:1px;opacity:.92;pointer-events:none;
+}
+.contact-hint b{color:var(--seal);pointer-events:auto}
+@media (max-width:560px){.contact-hint{font-size:11.5px;bottom:44px}}
+
 /* ── 响应式 ── */
 @media (max-width:560px){
   .masthead h1{font-size:38px;letter-spacing:7px}
@@ -253,6 +263,8 @@ body{
 </main>
 
 <footer class="disclaimer"><span class="mark">※</span> 本内容仅供娱乐参考，不构成任何决策建议 <span class="mark">※</span></footer>
+<!-- 引流引导：把下方"这里填你的微信"换成你的微信号/抖音号即可；不想留联系方式，删掉这一整行 div -->
+<div class="contact-hint">有缘人，想私下多聊几句？加清玄师傅微信：<b>这里填你的微信</b></div>
 
 <script>
 /* ==========================================================
@@ -533,7 +545,7 @@ body{
     ['辰','07:00–09:00'],['巳','09:00–11:00'],['午','11:00–13:00'],['未','13:00–15:00'],
     ['申','15:00–17:00'],['酉','17:00–19:00'],['戌','19:00–21:00'],['亥','21:00–23:00']
   ];
-  var DIRECTIONS = ['事业', '感情', '整体运势'];
+  var DIRECTIONS = ['事业', '感情', '学业', '整体运势'];
 
   var WX_TRAIT = {
     木:{strong:'生发之志盛，心气不肯安分，总想往外闯', weak:'生发之气不足，遇事先犹豫，少了点冲劲'},
@@ -571,6 +583,13 @@ body{
       偏弱:'你在感情里总先替对方着想，常常委屈了自己',
       弱:'你心软、放不下，最怕明明伤了心，还替他找理由'
     },
+    '学业': {
+      强:'你脑子转得快，学东西上手就熟，是个一点就通的',
+      偏强:'你骨子里好强，成绩上不肯落人后，压力多半是自己给的',
+      中和:'你学得稳、坐得住，成绩起伏不大，属于厚积薄发的',
+      偏弱:'你眼下心思有些散，不是不聪明，是杂事分走了心神',
+      弱:'你最近学得有些吃力，别急着否定自己，多半是没找到对的路子'
+    },
     '整体运势': {
       强:'你命格刚健，凡事多靠自己，不假外求',
       偏强:'你心气高，不愿落人后，样样都想做到最好',
@@ -595,6 +614,13 @@ body{
       偏弱:'先把自己活舒坦，再谈成全别人。你的好，要给值得的人。',
       弱:'把心收一收，先爱自己，别让一段关系耗干了你的灯。'
     },
+    '学业': {
+      强:'别满足于吃老本，挑个难啃的方向深耕，成绩还能再上一截。',
+      偏强:'把劲收一收，戒掉临时抱佛脚，稳扎稳打反而走得远。',
+      中和:'保持现在的节奏，把错题和薄弱处啃透，就是最大的进步。',
+      偏弱:'少熬夜硬扛，先保证睡够，白天效率比晚上耗着强。',
+      弱:'别跟别人比进度，跟自己比。每天定个小目标，完成它就算赢。'
+    },
     '整体运势': {
       强:'这一年宜进不宜退，把力气花在“做”上，别花在“想”上。',
       偏强:'戒骄戒躁，越是顺的时候越要留三分余地。',
@@ -607,7 +633,8 @@ body{
   var CLOSE = {
     '事业': '依贫道浅见，命是死的，运是活的，路是自己一步一步走出来的。',
     '感情': '缘分这种事，尽了心，剩下的便顺其自然。',
-    '整体运势': '盘上有的，是路，不是墙。走不走得通，全在你自己。'
+    '整体运势': '盘上有的，是路，不是墙。走不走得通，全在你自己。',
+    '学业': '学问这事，急不来。功夫到了，分数自然就上去了。'
   };
 
   var EMPATHY = {
@@ -622,13 +649,18 @@ body{
     '整体运势': [
       '施主既问整体运势，想是近来诸事纷扰，心里没个底，想讨个心安。',
       '近来可是觉得诸事不太顺遂？莫急，先坐下，喝口茶，听贫道慢慢说。'
+    ],
+    '学业': [
+      '施主问学业，想是近来学得有些烦闷，或是心里没底，怕辜负了期待。',
+      '问学业的人，多半是用了心、却还没见到结果，心里才发慌。'
     ]
   };
 
   var ACK_FIRST = {
     '事业': '善。既问事业，贫道自当尽心。敢问施主生于何年何月何日？用公历即可。',
     '感情': '善。情之一字最难参透，贫道尽力而为。敢问施主生于何年何月何日？用公历即可。',
-    '整体运势': '善。既问整体，贫道便为你通盘一看。敢问施主生于何年何月何日？用公历即可。'
+    '整体运势': '善。既问整体，贫道便为你通盘一看。敢问施主生于何年何月何日？用公历即可。',
+    '学业': '善。既问学业，贫道便为你看一看。敢问施主生于何年何月何日？用公历即可。'
   };
 
   var CHAT_REPLY = [
@@ -875,9 +907,10 @@ body{
     var texts = buildReading(b);
     state.readingDone = true;
     state.readCount++;
+    state.lastReading = '【清玄问命 · ' + state.direction + '】\n' + texts.join('\n') + '\n—— 仅供娱乐参考，不构成决策建议 ——';
     masterSay(texts[0]);
     masterSay(texts[1]);
-    masterSay(texts[2], panHTML(b));
+    masterSay(texts[2], panHTML(b) + '<div class="copy-row"><button type="button" class="copy-btn">复制结果 · 分享给朋友</button></div>');
     state.phase = 'done';
     masterSay('—— 这便是你的命盘，收好。心里若有结，随时再来寻贫道。', null, function () {
       renderControls();
@@ -944,6 +977,40 @@ body{
       '<span>金' + b.wuxing['金'] + ' 木' + b.wuxing['木'] + ' 水' + b.wuxing['水'] + ' 火' + b.wuxing['火'] + ' 土' + b.wuxing['土'] + '</span>' +
       '</div>' +
       '</div>';
+  }
+
+  // ── 复制结果（引流：一键复制解读，方便分享） ──
+  chat.addEventListener('click', function (e) {
+    var t = e.target;
+    if (t && t.className && String(t.className).indexOf('copy-btn') >= 0) {
+      e.preventDefault();
+      if (!state.lastReading) { masterSay('施主且慢，盘还没排好，急不得。'); return; }
+      copyResult(t);
+    }
+  });
+
+  function copyResult(btn) {
+    var text = state.lastReading;
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = '已复制 ✓';
+      setTimeout(function () { btn.textContent = old; }, 1600);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { legacyCopy(text); done(); });
+    } else {
+      legacyCopy(text); done();
+    }
+  }
+
+  function legacyCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style = 'position:fixed;opacity:0;';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
   }
 
   // ── 自由输入 ──
